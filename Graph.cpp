@@ -2,12 +2,18 @@
 
 using namespace ariel;
 
-void Graph::loadGraph(const std::vector<std::vector<size_t>>& graph) {
+void Graph::loadGraph(const std::vector<std::vector<int>>& graph) {
+    // Check if the graph is a square matrix
+    if (graph.size() != graph[0].size()) {
+        throw std::invalid_argument("Invalid graph: The graph is not a square matrix.");
+    }
+
+    // Assign the graph to the matrix member variable
     matrix = graph;
 }
 
 void Graph::printGraph() const {
-    size_t vertices = 0;
+    int vertices = 0;
 
     for (const auto& innerVec : matrix) {
         for (int num : innerVec) {
@@ -21,10 +27,10 @@ void Graph::printGraph() const {
 }
 
 // Help Functions
-size_t Graph::size() const{
+unsigned int Graph::size() const{
     return matrix.size();
 }
 
-const std::vector<size_t>& Graph::operator[](size_t index) const {
-    return matrix[index];
+const std::vector<int>& Graph::operator[](unsigned int index) const {
+    return matrix[static_cast<std::vector<std::vector<int>>::size_type>(index)];
 }

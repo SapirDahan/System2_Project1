@@ -8,14 +8,14 @@ using namespace std;
 namespace ariel{
     class Graph{
     private:
-        vector<vector<size_t>> matrix;
+        vector<vector<int>> matrix;
 
     public:
-        void loadGraph(const vector<vector<size_t>>& graph);
+        void loadGraph(const vector<vector<int>>& graph);
         void printGraph() const;
 
         // Help functions
-        [[nodiscard]] size_t size() const;
-        const std::vector<size_t>& operator[](size_t index) const;
+        [[nodiscard]] unsigned int size() const;
+        const std::vector<int>& operator[](unsigned int index) const;
     };
 }
