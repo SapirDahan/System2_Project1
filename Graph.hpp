@@ -17,5 +17,8 @@ namespace ariel{
         // Help functions
         [[nodiscard]] unsigned int size() const;
         const std::vector<int>& operator[](unsigned int index) const;
+        const int getEdge(unsigned int x, unsigned int y) const;
+        [[nodiscard]] std::vector<unsigned int> getConnectedVertices(unsigned int vertex) const;
+
     };
 }

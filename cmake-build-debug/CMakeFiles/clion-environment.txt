@@ -1,4 +1,4 @@
-ToolSet: 1.0 (local)Ninja: 1.11.1@/home/sapir/JetBrains/clion-2024.1/bin/ninja/linux/x64/ninja
+ToolSet: 1.0 (local)Ninja: 1.11.1@/snap/clion/275/bin/ninja/linux/x64/ninja
 Options: 
 
 Options:

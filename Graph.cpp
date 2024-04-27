@@ -34,3 +34,28 @@ unsigned int Graph::size() const{
 const std::vector<int>& Graph::operator[](unsigned int index) const {
     return matrix[static_cast<std::vector<std::vector<int>>::size_type>(index)];
 }
+
+const int Graph::getEdge(unsigned int x, unsigned int y) const{
+    // Check if x and y are within the bounds of the matrix
+    if (x < 0 || x >= matrix.size() || y < 0 || y >= matrix[0].size()) {
+        throw std::out_of_range("Index out of range");
+    }
+
+    return matrix[x][y];
+}
+
+std::vector<unsigned int> Graph::getConnectedVertices(unsigned int vertex) const {
+    std::vector<unsigned int> connectedVertices;
+    if (vertex >= matrix.size()) {
+        throw std::out_of_range("Vertex index out of range");
+    }
+
+    const std::vector<int>& edges = matrix[vertex];
+    for (unsigned int i = 0; i < edges.size(); ++i) {
+        if (edges[i] != 0) {
+            connectedVertices.push_back(i);
+        }
+    }
+
+    return connectedVertices;
+}
