@@ -10,8 +10,6 @@ OBJECTS=$(subst .cpp,.o,$(SOURCES))
 run: demo
 	./$^
 
-#demo: Demo.o $(OBJECTS)
-#	$(CXX) $(CXXFLAGS) $^ -o demo
 
 demo: Demo.o Graph.cpp Algorithms.cpp
 	$(CXX) $(CXXFLAGS) $^ -o demo

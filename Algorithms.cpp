@@ -258,13 +258,15 @@ bool Algorithms::bfs(const Graph& graph, int startVertex, std::vector<int>& colo
 
 std::string Algorithms::setToString(const std::unordered_set<int>& s) {
     std::string str;
-    for (int elem : s) {
-        str += std::to_string(elem) + ", ";
+    for (const int elem : s) {
+        str = ", " + std::to_string(elem) + str;
     }
 
     if (!str.empty()) {
-        str.pop_back(); // Remove the last comma
-        str.pop_back(); // Remove the space
+        // str.pop_back(); // Remove the last comma
+        // str.pop_back(); // Remove the space
+        // Erase the first two characters if the string is not empty
+        str.erase(0, 2); // Erase the first two characters
     }
     return str;
 }
