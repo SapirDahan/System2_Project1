@@ -17,5 +17,6 @@ namespace ariel {
         static void formatBipartiteSets(const std::unordered_set<int>& A, const std::unordered_set<int>& B, std::string& result);
         static std::string setToString(const std::unordered_set<int>& s);
         static unsigned int countOccurrences(const std::string& str, const char target);
+        static bool hasPath(const Graph& graph, unsigned int currentVertex, unsigned int toVertex, std::vector<bool>& visited);
     };
 }

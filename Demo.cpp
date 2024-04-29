@@ -46,16 +46,16 @@ int main()
 
     // 5x5 matrix that reprsents a connected weighted graph.
     vector<vector<int>> graph3 = {
-            {0, 1, 2, 0, 0},
+            {0, 1, 0, 0, 0},
             {1, 0, 3, 0, 0},
-            {2, 3, 0, 4, 0},
+            {0, 3, 0, 4, 0},
             {0, 0, 4, 0, 5},
             {0, 0, 0, 5, 0}};
     g.loadGraph(graph3); // Load the graph to the object.
 
-    g.printGraph();                                    // Should print: "Graph with 5 vertices and 10 edges."
+    g.printGraph();                                    // Should print: "Graph with 5 vertices and 8 edges."
     cout << Algorithms::isConnected(g) << endl;        // Should print: "1" (true).
-    cout << Algorithms::shortestPath(g, 0, 4) << endl; // Should print: 0->2->3->4.
+    cout << Algorithms::shortestPath(g, 0, 4) << endl; // Should print: 0->1->2->3->4.
     cout << Algorithms::isContainsCycle(g) << endl;    // Should print: "0" (false).
     cout << Algorithms::isBipartite(g) << endl;        // Should print: "The graph is bipartite: A={0, 2, 4}, B={1, 3}."
 
