@@ -12,7 +12,7 @@ namespace ariel{
 
     public:
         void loadGraph(const vector<vector<int>>& graph);
-        void printGraph() const;
+        [[nodiscard]] std::string printGraph() const;
 
         // Help functions
         [[nodiscard]] unsigned int size() const;

@@ -12,7 +12,7 @@ void Graph::loadGraph(const std::vector<std::vector<int>>& graph) {
     matrix = graph;
 }
 
-void Graph::printGraph() const {
+std::string Graph::printGraph() const {
     int vertices = 0;
 
     for (const auto& innerVec : matrix) {
@@ -23,7 +23,8 @@ void Graph::printGraph() const {
         }
     }
 
-    std::cout << "Graph with " << matrix.size() << " vertices and " << vertices << " edges." << std::endl;
+    std::string description = "Graph with " + std::to_string(matrix.size()) + " vertices and " + std::to_string(vertices) + " edges.";
+    return description;
 }
 
 // Help Functions

@@ -27,6 +27,11 @@ bool Algorithms::isConnected(const Graph& graph) {
 // Using the Bellman-Ford algorithm
 std::string Algorithms::shortestPath(const Graph& graph, int start, int end) {
     const unsigned int numVertices = graph.size();
+
+    if(start < 0 || start >= numVertices ||end < 0 || end >= numVertices) {
+        throw std::invalid_argument("Invalid values: the start and the end vertex should be in range.");
+    }
+
     std::vector<int> distance(numVertices, INT_MAX);
     std::vector<int> predecessor(numVertices, -1);
 
@@ -38,9 +43,9 @@ std::string Algorithms::shortestPath(const Graph& graph, int start, int end) {
 
                 // Checking if there an edge
                 if(graph.getEdge(j,k) != 0) {
-                    if (distance[j] != INT_MAX && distance[j] + static_cast<int>(k) < distance[k]) {
+                    if (distance[j] != INT_MAX && distance[j] + graph.getEdge(j,k) < distance[k]) {
                         //cout<<numVertices<<endl;
-                        distance[k] = distance[j] + static_cast<int>(k);
+                        distance[k] = distance[j] + graph.getEdge(j,k);
                         predecessor[k] = static_cast<int>(j);
                         }
                 }
@@ -48,12 +53,19 @@ std::string Algorithms::shortestPath(const Graph& graph, int start, int end) {
         }
     }
 
+    //cout<<numVertices<<endl;
+
     for (unsigned int j = 0; j < numVertices; j++) {
         for (unsigned int k = 0; k < numVertices; k++) {
-
             // Checking if there an edge
             if(graph.getEdge(j,k) != 0) {
-                if (distance[j] != INT_MAX && distance[j] + static_cast<int>(k) < distance[k]) {
+                //cout<<"----------------"<<endl;
+                //cout<<distance[j]<<endl;
+                //cout<<distance[j] + graph.getEdge(j,k)<<endl;
+                //cout<<distance[k]<<endl;
+                if (distance[j] != INT_MAX && distance[j] + graph.getEdge(j,k) < distance[k]) {
+                    //cout<<"get in"<<endl;
+
                     return "Negative cycle detected in the path.";
                 }
             }
@@ -271,28 +283,36 @@ std::string Algorithms::negativeCycle(const Graph& graph) {
             distance[start] = 0;
 
             // Relax all edges V-1 times
-            for (unsigned int i = 0; i < V - 1; ++i) {
-                for (unsigned int u = 0; u < V; ++u) {
-                    for (unsigned int v = 0; v < V; ++v) {
+            for (unsigned int i = 0; i < V; i++) {
+                for (unsigned int u = 0; u < V; u++) {
+                    for (unsigned int v = 0; v < V; v++) {
+                        cout<<"get in main loop"<<endl;
                         int weight = graph.getEdge(u, v);
                         if (weight != 0 && distance[u] < std::numeric_limits<int>::max() && distance[u] + weight < distance[v]) {
-                        distance[v] = distance[u] + weight;
-                        predecessor[v] = static_cast<int>(u);
+                            distance[v] = distance[u] + weight;
+                            predecessor[v] = static_cast<int>(u);
+                        }
                     }
                 }
             }
         }
 
-        // Reset distances for next start vertex
-        std::fill(distance.begin(), distance.end(), std::numeric_limits<int>::max());
-        std::fill(predecessor.begin(), predecessor.end(), -1);
-        }
+        // // Reset distances for next start vertex
+        // std::fill(distance.begin(), distance.end(), std::numeric_limits<int>::max());
+        // std::fill(predecessor.begin(), predecessor.end(), -1);
+
     }
 
     // Check for negative cycles after all shortest paths have been computed
     for (unsigned int u = 0; u < V; ++u) {
         for (unsigned int v = 0; v < V; ++v) {
             int weight = graph.getEdge(u, v);
+
+            cout<<"----------------"<<endl;
+            cout<<distance[u]<<endl;
+            cout<<distance[u] + graph.getEdge(u,v)<<endl;
+            cout<<distance[v]<<endl;
+
             if (weight != 0 && distance[u] < std::numeric_limits<int>::max() && distance[u] + weight < distance[v]) {
                 // Negative cycle detected, construct the cycle path
                 std::vector<int> cycle;
@@ -315,6 +335,10 @@ std::string Algorithms::negativeCycle(const Graph& graph) {
                 return cycleStr;
             }
         }
+
+        // Reset distances for next start vertex
+        std::fill(distance.begin(), distance.end(), std::numeric_limits<int>::max());
+        std::fill(predecessor.begin(), predecessor.end(), -1);
     }
 
     return "No negative cycle found.";
