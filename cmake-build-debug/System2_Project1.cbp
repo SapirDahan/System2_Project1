@@ -88,9 +88,6 @@
 		<Unit filename="/home/sapir/CLionProjects/System2_Project1/Algorithms.hpp">
 			<Option target="System2_Project1"/>
 		</Unit>
-		<Unit filename="/home/sapir/CLionProjects/System2_Project1/main.cpp">
-			<Option target="System2_Project1"/>
-		</Unit>
 		<Unit filename="/home/sapir/CLionProjects/System2_Project1/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>

@@ -115,47 +115,273 @@ std::string Algorithms::isBipartite(const Graph& graph) {
 }
 
 std::string Algorithms::negativeCycle(const Graph& graph) {
-    const unsigned int numVertices = graph.size();
-    std::vector<int> distance(numVertices, INT_MAX);
-    std::vector<unsigned int> predecessor(numVertices, INT_MAX);
-    int cycleStart = -1;
+//     const unsigned int numVertices = graph.size();
+//     std::vector<int> distance(numVertices, INT_MAX);
+//     std::vector<unsigned int> predecessor(numVertices, INT_MAX);
+//     int cycleStart = -1;
+//
+//     distance[0] = 0;
+//
+//     // Relax edges repeatedly
+//     for (unsigned int i = 0; i < numVertices; i++) {
+//         cycleStart = -1;
+//         for (unsigned int u = 0; u < numVertices; u++) {
+//             for (const auto v : graph.operator[](u)) {
+//                 if(graph.operator[](u)[static_cast<unsigned int>(v)] != 0 && distance[u] < INT_MAX && distance[u] + graph.operator[](u)[static_cast<unsigned int>(v)] < distance[static_cast<unsigned int>(v)]) {
+//                     distance[static_cast<unsigned int>(v)] = max(distance[u] + graph.operator[](u)[static_cast<unsigned int>(v)], -INT_MAX);
+//                     predecessor[static_cast<unsigned int>(v)] = u;
+//                     cycleStart = v;
+//                 }
+//             }
+//         }
+//     }
+//
+//     if(cycleStart < 0) {
+//          return "No negative cycle found.";
+//     }
+//     else {
+//         for(size_t i = 0; i < numVertices; i++) {
+//             cycleStart = static_cast<int>(predecessor[static_cast<unsigned int>(cycleStart)]);
+//         }
+//         string cycle;
+//         auto v = static_cast<unsigned int>(cycleStart);
+//         do {
+//             cycle += to_string(v);
+//             cycle += "->";
+//             v = static_cast<unsigned int>(predecessor[v]);
+//         } while(v != cycleStart);
+//
+//         //remove te last ->
+//         cycle = cycle.substr(0, cycle.length() - 2);
+//         return cycle;
+//     }
+    // const unsigned int numVertices = graph.size();
+    // std::vector<int> distance(numVertices, INT_MAX);
+    // std::vector<int> predecessor(numVertices, -1);
+    //
+    // int cycleStart = -1;
+    //
+    // distance[0] = 0;
+    //
+    // // Relax edges repeatedly
+    // for (unsigned int i = 0; i < numVertices; i++) {
+    //     cycleStart = -1;
+    //     for (unsigned int u = 0; u < numVertices; u++) {
+    //         for (const auto v : graph[u]) {
+    //             const unsigned int y = static_cast<unsigned int>(v);
+    //             if (distance[u] < INT_MAX && graph[u][y] != 0 && distance[u] + graph[u][y] < distance[y]) {
+    //                 distance[y] = distance[u] + graph[u][y];
+    //                 predecessor[y] = u;
+    //                 cycleStart = v;
+    //             }
+    //         }
+    //     }
+    // }
+    //
+    // if (cycleStart < 0) {
+    //     return "No negative cycle found.";
+    // } else {
+    //     unsigned int v = static_cast<unsigned int>(cycleStart);
+    //     std::string cycle;
+    //     do {
+    //         cycle += std::to_string(v);
+    //         cycle += "->";
+    //         v = predecessor[v];
+    //     } while (v != static_cast<unsigned int>(cycleStart));
+    //
+    //     // Remove the last "->"
+    //     cycle = cycle.substr(0, cycle.length() - 2);
+    //     return cycle;
+    // }
 
-    distance[0] = 0;
+    // const unsigned int V = graph.size();
+    // std::vector<int> distance(V, std::numeric_limits<int>::max());
+    // std::vector<int> predecessor(V, -1);
+    //
+    // // Start from each vertex to handle disconnected graphs
+    // for (unsigned int start = 0; start < V; start++) {
+    //     if (distance[start] == std::numeric_limits<int>::max()) {
+    //         distance[start] = 0;
+    //
+    //         // Relax all edges V-1 times
+    //         for (unsigned int i = 0; i < V - 1; ++i) {
+    //             for (unsigned int u = 0; u < V; ++u) {
+    //                 for (unsigned int v = 0; v < V; ++v) {
+    //                     int weight = graph.getEdge(u, v);
+    //                     if (weight != 0 && distance[u] < std::numeric_limits<int>::max() && distance[u] + weight < distance[v]) {
+    //                         distance[v] = distance[u] + weight;
+    //                         predecessor[v] = static_cast<int>(u);
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //         // Check for negative cycles
+    //         for (unsigned int u = 0; u < V; ++u) {
+    //             for (unsigned int v = 0; v < V; ++v) {
+    //
+    //                 int weight = graph.getEdge(u, v);
+    //
+    //                 if (weight != 0 && distance[u] < std::numeric_limits<int>::max() && distance[u] + weight < distance[v]) {
+    //                     // Negative cycle detected, construct the cycle path
+    //
+    //                     std::vector<int> cycle;
+    //                     unsigned int current = v;
+    //
+    //                     // To ensure we get the complete cycle, even if we detect it in the middle
+    //                     //for (int i = 0; i < V; ++i) current = static_cast<unsigned int>(predecessor[current]);
+    //
+    //                     unsigned int startOfCycle = current;
+    //                     do {
+    //                         cycle.push_back(static_cast<int>(current));
+    //                         current = static_cast<unsigned int>(predecessor[current]);
+    //                     } while (current != startOfCycle);
+    //
+    //                     cycle.push_back(static_cast<int>(startOfCycle)); // Complete the cycle
+    //
+    //                     // Reverse the cycle to start with the first vertex found in negative cycle
+    //                     //std::reverse(cycle.begin(), cycle.end());
+    //
+    //                     // Convert cycle to string format
+    //                     std::string cycleStr;
+    //                     for (unsigned int i = 0; i < cycle.size(); ++i) {
+    //                         cycleStr += std::to_string(cycle[i]);
+    //                         if (i < cycle.size() - 1) cycleStr += "->";
+    //                     }
+    //                     return cycleStr;
+    //                 }
+    //             }
+    //         }
+    //
+    //         // Reset distances for next start vertex
+    //         std::fill(distance.begin(), distance.end(), std::numeric_limits<int>::max());
+    //         std::fill(predecessor.begin(), predecessor.end(), -1);
+    //     }
+    // }
+    //
+    // return "No negative cycle found.";
 
-    // Relax edges repeatedly
-    for (unsigned int i = 0; i < numVertices; i++) {
-        cycleStart = -1;
-        for (unsigned int u = 0; u < numVertices; u++) {
-            for (const auto v : graph.operator[](u)) {
-                if(graph.operator[](u)[static_cast<unsigned int>(v)] != 0 && distance[u] < INT_MAX && distance[u] + graph.operator[](u)[static_cast<unsigned int>(v)] < distance[static_cast<unsigned int>(v)]) {
-                    distance[static_cast<unsigned int>(v)] = max(distance[u] + graph.operator[](u)[static_cast<unsigned int>(v)], -INT_MAX);
-                    predecessor[static_cast<unsigned int>(v)] = u;
-                    cycleStart = v;
+
+    const unsigned int V = graph.size();
+    std::vector<int> distance(V, std::numeric_limits<int>::max());
+    std::vector<int> predecessor(V, -1);
+
+    // Start from each vertex to handle disconnected graphs
+    for (unsigned int start = 0; start < V; start++) {
+        if (distance[start] == std::numeric_limits<int>::max()) {
+            distance[start] = 0;
+
+            // Relax all edges V-1 times
+            for (unsigned int i = 0; i < V - 1; ++i) {
+                for (unsigned int u = 0; u < V; ++u) {
+                    for (unsigned int v = 0; v < V; ++v) {
+                        int weight = graph.getEdge(u, v);
+                        if (weight != 0 && distance[u] < std::numeric_limits<int>::max() && distance[u] + weight < distance[v]) {
+                        distance[v] = distance[u] + weight;
+                        predecessor[v] = static_cast<int>(u);
+                    }
                 }
+            }
+        }
+
+        // Reset distances for next start vertex
+        std::fill(distance.begin(), distance.end(), std::numeric_limits<int>::max());
+        std::fill(predecessor.begin(), predecessor.end(), -1);
+        }
+    }
+
+    // Check for negative cycles after all shortest paths have been computed
+    for (unsigned int u = 0; u < V; ++u) {
+        for (unsigned int v = 0; v < V; ++v) {
+            int weight = graph.getEdge(u, v);
+            if (weight != 0 && distance[u] < std::numeric_limits<int>::max() && distance[u] + weight < distance[v]) {
+                // Negative cycle detected, construct the cycle path
+                std::vector<int> cycle;
+                unsigned int current = v;
+                unsigned int startOfCycle = current;
+                do {
+                    cycle.push_back(static_cast<int>(current));
+                    current = static_cast<unsigned int>(predecessor[current]);
+                } while (current != startOfCycle);
+
+                cycle.push_back(static_cast<int>(startOfCycle)); // Complete the cycle
+
+                // Convert cycle to string format
+                std::string cycleStr;
+                for (unsigned int i = 0; i < cycle.size(); ++i) {
+                    cycleStr += std::to_string(cycle[i]);
+                    if (i < cycle.size() - 1) cycleStr += "->";
+                }
+                cout<<cycleStr<<endl;
+                return cycleStr;
             }
         }
     }
 
-    if(cycleStart < 0) {
-         return "No negative cycle found.";
-    }
-    else {
-        for(size_t i = 0; i < numVertices; i++) {
-            cycleStart = static_cast<int>(predecessor[static_cast<unsigned int>(cycleStart)]);
-        }
-        string cycle;
-        auto v = static_cast<unsigned int>(cycleStart);
-        do {
-            cycle += to_string(v);
-            cycle += "->";
-            v = static_cast<unsigned int>(predecessor[v]);
-        } while(v != cycleStart);
+    return "No negative cycle found.";
 
-        //remove te last ->
-        cycle = cycle.substr(0, cycle.length() - 2);
-        return cycle;
-    }
 
+
+    // const unsigned int V = graph.size();
+    // std::vector<int> distance(V);
+    // std::vector<int> predecessor(V);
+    //
+    // // Attempt to find a negative cycle starting from each vertex
+    // for (unsigned int start = 0; start < V; ++start) {
+    //     std::fill(distance.begin(), distance.end(), std::numeric_limits<int>::max());
+    //     std::fill(predecessor.begin(), predecessor.end(), -1);
+    //
+    //     distance[start] = 0; // Start from this vertex
+    //
+    //     // Relax all edges V-1 times
+    //     for (unsigned int i = 1; i < V; ++i) {
+    //         for (unsigned int u = 0; u < V; ++u) {
+    //             for (unsigned int v = 0; v < V; ++v) {
+    //                 int weight = graph.getEdge(u, v);
+    //                 if (weight != 0 && distance[u] < std::numeric_limits<int>::max() && distance[u] + weight < distance[v]) {
+    //                     distance[v] = distance[u] + weight;
+    //                     predecessor[v] = static_cast<int>(u);
+    //                 }
+    //             }
+    //         }
+    //     }
+    //
+    //     // Check for negative cycles
+    //     for (unsigned int u = 0; u < V; ++u) {
+    //         for (unsigned int v = 0; v < V; ++v) {
+    //             int weight = graph.getEdge(u, v);
+    //             if (weight != 0 && distance[u] + weight < distance[v]) {
+    //                 // Negative cycle detected, reconstruct the cycle path
+    //                 std::vector<bool> visited(V, false);
+    //                 std::vector<int> cycle;
+    //                 unsigned int current = v;
+    //
+    //                 // Trace back the cycle
+    //                 for(unsigned int i = 0; i < V; ++i) current = static_cast<unsigned int>(predecessor[current]);
+    //
+    //                 unsigned int startOfCycle = current;
+    //                 do {
+    //                     cycle.push_back(static_cast<int>(current));
+    //                     current = static_cast<unsigned int>(predecessor[current]);
+    //                 } while(current != startOfCycle);
+    //
+    //                 cycle.push_back(static_cast<int>(startOfCycle)); // Complete the cycle
+    //
+    //                 // Convert cycle to string format
+    //                 std::string cycleStr;
+    //                 for (unsigned int i = cycle.size() - 1; i >= 0; --i) { // Reverse the cycle to start from the beginning
+    //                     if(i != cycle.size() - 1) cycleStr += "->";
+    //                     cycleStr += std::to_string(cycle[i]);
+    //                 }
+    //
+    //                 return cycleStr;
+    //             }
+    //         }
+    //     }
+    // }
+    //
+    // return "No negative cycle found.";
+    //
+    //
 
 }
 
@@ -263,9 +489,6 @@ std::string Algorithms::setToString(const std::unordered_set<int>& s) {
     }
 
     if (!str.empty()) {
-        // str.pop_back(); // Remove the last comma
-        // str.pop_back(); // Remove the space
-        // Erase the first two characters if the string is not empty
         str.erase(0, 2); // Erase the first two characters
     }
     return str;

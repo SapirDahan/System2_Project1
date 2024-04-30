@@ -9,7 +9,6 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/sapir/CLionProjects/System2_Project1/Algorithms.cpp" "CMakeFiles/System2_Project1.dir/Algorithms.cpp.o" "gcc" "CMakeFiles/System2_Project1.dir/Algorithms.cpp.o.d"
-  "/home/sapir/CLionProjects/System2_Project1/main.cpp" "CMakeFiles/System2_Project1.dir/main.cpp.o" "gcc" "CMakeFiles/System2_Project1.dir/main.cpp.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.
