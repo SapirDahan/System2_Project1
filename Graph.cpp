@@ -2,61 +2,77 @@
 
 using namespace ariel;
 
-void Graph::loadGraph(const std::vector<std::vector<int>>& graph) {
-    // Check if the graph is a square matrix
-    if (graph.size() != graph[0].size()) {
-        throw std::invalid_argument("Invalid graph: The graph is not a square matrix.");
-    }
 
+// Load the graph and check if it square
+void Graph::loadGraph(const std::vector<std::vector<int>>& graph) {
+
+    // Check the matrix is square
+    for(unsigned int i = 0; i< graph.size(); i++){
+        if (graph.size() != graph[i].size()) {
+            throw invalid_argument("Invalid graph: The graph is not a square matrix.");
+        }
+    }
     // Assign the graph to the matrix member variable
     matrix = graph;
 }
 
-std::string Graph::printGraph() const {
-    int vertices = 0;
+// Return how many vertex and edge the graph have
+string Graph::printGraph() const {
+    int edges = 0;
 
-    for (const auto& innerVec : matrix) {
-        for (int num : innerVec) {
+    // counting the edges
+    for (const auto& edge : matrix) {
+        for (int num : edge) {
             if (num != 0) {
-                vertices++;
+                edges++;
             }
         }
     }
 
-    std::string description = "Graph with " + std::to_string(matrix.size()) + " vertices and " + std::to_string(vertices) + " edges.";
+    // Constrate the string
+    string description = "Graph with " + std::to_string(matrix.size()) + " vertices and " + to_string(edges) + " edges.";
     return description;
 }
 
-// Help Functions
+// Return the size
 unsigned int Graph::size() const{
     return matrix.size();
 }
 
+// Return the row of the matrix
 const std::vector<int>& Graph::operator[](unsigned int index) const {
-    return matrix[static_cast<std::vector<std::vector<int>>::size_type>(index)];
+    return matrix[static_cast<vector<vector<int>>::size_type>(index)];
 }
 
+// Get the edge
 const int Graph::getEdge(unsigned int x, unsigned int y) const{
+
     // Check if x and y are within the bounds of the matrix
-    if (x < 0 || x >= matrix.size() || y < 0 || y >= matrix[0].size()) {
-        throw std::out_of_range("Index out of range");
+    if (x >= matrix.size() || y >= matrix[0].size()) {
+        throw out_of_range("Index out of range");
     }
 
     return matrix[x][y];
 }
 
-std::vector<unsigned int> Graph::getConnectedVertices(unsigned int vertex) const {
-    std::vector<unsigned int> connectedVertices;
+// Get the vertex how are not 0
+vector<unsigned int> Graph::getConnectedVertices(unsigned int vertex) const {
+
+    vector<unsigned int> connectedVertices;
+
+    // Check the bound
     if (vertex >= matrix.size()) {
-        throw std::out_of_range("Vertex index out of range");
+        throw out_of_range("Vertex index out of range");
     }
 
-    const std::vector<int>& edges = matrix[vertex];
+    // Find the edges
+    const vector<int>& edges = matrix[vertex];
     for (unsigned int i = 0; i < edges.size(); ++i) {
         if (edges[i] != 0) {
             connectedVertices.push_back(i);
         }
     }
 
+    // Return the connected verteces
     return connectedVertices;
 }

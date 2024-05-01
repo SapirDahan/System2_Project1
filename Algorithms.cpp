@@ -1,41 +1,57 @@
 #include "Algorithms.hpp"
-#include <iostream>
 #include <vector>
 #include <climits>
+#include <queue> // For Bipartite
 
 
 using namespace ariel;
 
+
+// Checking if the graph is strongly connected
 bool Algorithms::isConnected(const Graph& graph) {
-    const unsigned int graphSize = graph.size();
+
+    const unsigned int graphSize = graph.size(); // Size of the graph
+
+    // A vector that save who we visited
     std::vector<bool> visited(graphSize, false);
 
+    // Going over all combinations of paths
     for(unsigned int i = 0; i < graphSize; i++) {
         for(unsigned int j = 0; j < graphSize; j++) {
+
+            // We dont need to check if a vertex have a path to himself
             if(i != j) {
+
+                // If there is no path return false because the graph is not strongly connected
                 if(!hasPath(graph, i , j, visited)) {
                     return false;
                 }
+
+                // Refill the visited vector with false for the next round
                 visited.assign(graphSize, false);
             }
         }
     }
+
+    // All paths exict, therefore, our graph is strongly connected
     return true;
 }
 
 
-// Using the Bellman-Ford algorithm
-std::string Algorithms::shortestPath(const Graph& graph, int start, int end) {
-    const unsigned int numVertices = graph.size();
+// Shortest path using the Bellman-Ford algorithm
+string Algorithms::shortestPath(const Graph& graph, const unsigned int start, const unsigned int end) {
 
-    if(start < 0 || start >= numVertices ||end < 0 || end >= numVertices) {
+    const unsigned int numVertices = graph.size(); // Size of the graph
+
+    // Check if the valuse are in range
+    if(start >= numVertices || end >= numVertices) {
         throw std::invalid_argument("Invalid values: the start and the end vertex should be in range.");
     }
 
     std::vector<int> distance(numVertices, INT_MAX);
     std::vector<int> predecessor(numVertices, -1);
 
-    distance[static_cast<unsigned int>(start)] = 0;
+    distance[start] = 0;
 
     for (unsigned int i = 0; i < numVertices; i++) {
         for (unsigned int j = 0; j < numVertices; j++) {
@@ -70,7 +86,7 @@ std::string Algorithms::shortestPath(const Graph& graph, int start, int end) {
 
     // Reconstruct the path
     std::string path = std::to_string(end);
-    for (unsigned int current = static_cast<unsigned int>(end); current != static_cast<unsigned int>(start); current = static_cast<unsigned int>(predecessor[current])) {
+    for (unsigned int current = end; current != start; current = static_cast<unsigned int>(predecessor[current])) {
         path.insert(0, "->");
         path.insert(0, std::to_string(predecessor[current]));
     }
@@ -123,7 +139,7 @@ std::string Algorithms::negativeCycle(const Graph& graph) {
     const unsigned int numVertices = graph.size();
 
     for(unsigned int i = 0; i < numVertices; i++) {
-        if(shortestPath(graph, static_cast<int>(i), static_cast<int>(i)) == "Negative cycle detected in the path.") {
+        if(shortestPath(graph, i, i) == "Negative cycle detected in the path.") {
             return "Negative cycle detected in the path.";
         }
     }
@@ -131,16 +147,46 @@ std::string Algorithms::negativeCycle(const Graph& graph) {
     return "No negative cycle detected in the path.";
 }
 
-// Help functions
-void Algorithms::DFS(const Graph& graph, unsigned int startVertex, std::vector<bool>& visited) {
-    visited[startVertex] = true; // Mark the current vertex as visited
+/////// Help functions ///////
 
-    for (const auto nextVertex : graph.operator[](startVertex)) {
-        if (!visited[static_cast<unsigned int>(nextVertex)]) {
-            DFS(graph, static_cast<unsigned int>(nextVertex), visited); // Recursively visit the neighbor
+// Help recursive function to find out if 2 vertex have a path
+bool Algorithms::hasPath(const Graph& graph, unsigned int start, unsigned int end, std::vector<bool>& visited) {
+
+    // Mark the current vertex as visited
+    visited[start] = true;
+
+    // Base case: If we reach the destination vertex, return true
+    if (start == end) {
+        return true;
+    }
+
+    // Recursive step: Explore all adjacent vertices of the start vertex
+    const vector<unsigned int>& edges = graph.getConnectedVertices(start);
+
+    // Going over all the edges
+    for (unsigned int adjacentVertex : edges) {
+
+        // Recursively call hasPath for unvisited adjacent vertices
+        if (!visited[adjacentVertex]) {
+            if (hasPath(graph, adjacentVertex, end, visited)) {
+                return true; // If a path is found, return true
+            }
         }
     }
+
+    // If we reach here, there is no path from start vertex to end vertex
+    return false;
 }
+
+// void Algorithms::DFS(const Graph& graph, unsigned int startVertex, std::vector<bool>& visited) {
+//     visited[startVertex] = true; // Mark the current vertex as visited
+//
+//     for (const auto nextVertex : graph.operator[](startVertex)) {
+//         if (!visited[static_cast<unsigned int>(nextVertex)]) {
+//             DFS(graph, static_cast<unsigned int>(nextVertex), visited); // Recursively visit the neighbor
+//         }
+//     }
+// }
 
 bool Algorithms::DFSForDetectingCycles(unsigned int node, unsigned int parentNode, const Graph& graph, vector<bool>& visited, vector<unsigned int>& parent, string& cyclePath) {
 
@@ -247,7 +293,7 @@ void Algorithms::formatBipartiteSets(const std::unordered_set<int>& A, const std
     result.append("}.");
 }
 
-unsigned int Algorithms::countOccurrences(const std::string& str, const char target) {
+unsigned int Algorithms::countOccurrences(const std::string& str, char target) {
     unsigned int count = 0;
     for (const char ch : str) {
         if (ch == target) {
@@ -257,27 +303,3 @@ unsigned int Algorithms::countOccurrences(const std::string& str, const char tar
     return count;
 }
 
-bool Algorithms::hasPath(const Graph& graph, unsigned int currentVertex, unsigned int toVertex, std::vector<bool>& visited) {
-    // Mark the current vertex as visited
-    visited[currentVertex] = true;
-
-    // Base case: If we reach the destination vertex, return true
-    if (currentVertex == toVertex) {
-        return true;
-    }
-
-    // Recursive step: Explore all adjacent vertices of currentVertex
-    const std::vector<unsigned int>& edges = graph.getConnectedVertices(currentVertex);
-    for (unsigned int i = 0; i < edges.size(); i++) {
-        unsigned int adjacentVertex = edges[i];
-        if (!visited[adjacentVertex]) {
-            // Recursively call hasPath for unvisited adjacent vertices
-            if (hasPath(graph, adjacentVertex, toVertex, visited)) {
-                return true; // If a path is found, return true
-            }
-        }
-    }
-
-    // If we reach here, there is no path from currentVertex to toVertex
-    return false;
-}
