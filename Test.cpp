@@ -88,11 +88,9 @@ TEST_CASE("Test shortestPath")
 
     g.loadGraph(graph6);
     CHECK(ariel::Algorithms::shortestPath(g, 3, 4) == "3->4");
-
-
 }
-TEST_CASE("Test isContainsCycle")
-{
+
+TEST_CASE("Test isContainsCycle"){
     ariel::Graph g;
     vector<vector<int>> graph = {
         {0, 1, 0},
@@ -147,7 +145,7 @@ TEST_CASE("Test negative cycles"){
         {2, -5, 0}};
 
     g.loadGraph(graph);
-    CHECK(ariel::Algorithms::negativeCycle(g) == "Negative cycle detected in the path.");
+    CHECK(ariel::Algorithms::negativeCycle(g) == "The graph contains negative cycle");
 
     // Negative cycle not in path
     vector<vector<int>> graph2 = {
@@ -158,7 +156,7 @@ TEST_CASE("Test negative cycles"){
         {0, 0, -5, 0, 0}};
 
     g.loadGraph(graph2);
-    CHECK(ariel::Algorithms::negativeCycle(g) == "Negative cycle detected in the path.");
+    CHECK(ariel::Algorithms::negativeCycle(g) == "The graph contains negative cycle");
 
     vector<vector<int>> graph3 = {
         {0, 1, 0, 0, 0},
@@ -167,7 +165,7 @@ TEST_CASE("Test negative cycles"){
         {0, 0, 4, 0, 5},
         {0, 0, 0, -10, 0}};
     g.loadGraph(graph3);
-    CHECK(ariel::Algorithms::negativeCycle(g) == "Negative cycle detected in the path.");
+    CHECK(ariel::Algorithms::negativeCycle(g) == "The graph contains negative cycle");
 
  	vector<vector<int>> graph4 = {
         {0, 1, 0, 0, 0},
@@ -176,7 +174,7 @@ TEST_CASE("Test negative cycles"){
         {0, 0, 4, 0, 5},
         {0, 0, 0, -3, 0}};
     g.loadGraph(graph4);
-    CHECK(ariel::Algorithms::negativeCycle(g) == "No negative cycle detected in the path.");
+    CHECK(ariel::Algorithms::negativeCycle(g) == "The graph NOT contains negative cycle");
 
 	// Cycle sum 0
 	vector<vector<int>> graph5 = {
@@ -185,7 +183,7 @@ TEST_CASE("Test negative cycles"){
         {-3, 0, 0}};
 
     g.loadGraph(graph5);
-    CHECK(ariel::Algorithms::negativeCycle(g) == "No negative cycle detected in the path.");
+    CHECK(ariel::Algorithms::negativeCycle(g) == "The graph NOT contains negative cycle");
 
 
 
