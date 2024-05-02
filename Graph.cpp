@@ -39,11 +39,6 @@ unsigned int Graph::size() const{
     return matrix.size();
 }
 
-// Return the row of the matrix
-const std::vector<int>& Graph::operator[](unsigned int index) const {
-    return matrix[static_cast<vector<vector<int>>::size_type>(index)];
-}
-
 // Get the edge
 const int Graph::getEdge(unsigned int x, unsigned int y) const{
 

@@ -1,31 +1,79 @@
-# מטלה 1 - גרפים (Classes and Namespaces)
+# System 2 Project 1
 
-המטרה שלכם במטלה הזאת היא ליצור מחלקה שמייצגת גרף ולממש אלגוריתמים על הגרפים (זה הזמן להזכר בקורס אלגוריתמים 1).
+## Description
+This project implements algorithms for analyzing graphs, including checking for strong connectivity, finding the shortest path using the Bellman-Ford algorithm, detecting cycles, determine if there is a negative cycle, and determining if a graph is bipartite. It provides functionality for both directed and undirected graphs, where an undirected graph is treated as a special case of a directed graph with bidirectional edges.
 
-במטלה הזאת הייצוג של הגרף שלכם יתבצע בעזרת מטריצת שכנויות - https://he.wikipedia.org/wiki/%D7%9E%D7%98%D7%A8%D7%99%D7%A6%D7%AA_%D7%A9%D7%9B%D7%A0%D7%95%D7%AA.
+For instance, this undirected graph:
 
-הגרף יכול להיות גרף מכוון ולא מכוון וגם גרף ממושקל. מטריצת השכנויות חייבת להיות מטריצה ריבועית.
+![Undirected Graph](Images/image1.jpg)
 
-עליכם לכתוב את הקבצים הבאים:
+will be treated as:
 
-```
-Graph.cpp
-Algorithms.cpp
-```
+![Directed Graph](Images/image2.jpg)
 
-הקובץ `Graph.cpp` מכיל מחלקה המייצגת גרף.
-המחלקה מכילה את הפעולות `loadGraph` המקבלת מטריצת שכנויות וטוענת אותה לתוך הגרף ו-`printGraph` שמדפיסה את הייצוג של הגרף (הפורמט לבחירתכם, ראו דוגמה ב-`Demo.cpp`).
+---
 
-הקובץ `Algorithms.cpp` מכיל מימושים לאלגוריתמים על גרפים. ביניהם:
+## How to Run the Project
+### Compile the project
 
-- `isConnected(g)` - האלגוריתם מקבל גרף ומחזיר 1 אם הגרף קשיר (אחרת מחזיר 0).
-- `shortestPath(g,start,end)` - האלגוריתם מקבל גרף, קודקוד התחלה וקודקוד סיום ומחזיר את המסלול הקל ביותר (במקרה שהגרף לא ממושקל - הקצר ביותר) בין שני הקודקודים. במידה ואין מסלול כזה, האלגוריתם יחזיר -1.
-- `isContainsCycle(g)` - האלגוריתם מקבל גרף ומדפיס מעגל כלשהו. אם לא קיים מעגל בגרף, האלגוריתם יחזיר 0.
-- `isBipartite(g)` - האלגוריתם מקבל גרף ומחזיר את החלוקה של הגרף לגרף דו-צדדי. אם אי אפשר לחלק את הגרף, האלגוריתם יחזיר 0.
-- `negativeCycle(g)` - האלגוריתם מקבל גרף ומוצא מעגל שלילי (כלומר מעגל שסכום המשקלים של הצלעות שלילי). אם לא קיים מעגל כזה, האלגוריתם ידפיס שלא קיים מעגל שלילי.
+Use the provided `makefile` to build and run the project:
+    
+   - To build demo:
+        ```bash
+        make run
+        ```
+  - To build tests:
+      ```bash
+      make test
+      ```
+  - To check for memory leaks using Valgrind:
+      ```bash
+      make valgrind
+      ```
+  - To perform static code analysis using Clang-Tidy:
+      ```bash
+      make tidy
+      ```
 
-הקובץ `Demo.cpp` מכיל דוגמאות של קלטים ופלטים.
-עליכם לכתוב בתחילת כל קובץ את מספר תעודת הזהות שלכם ואת המייל. כמו כן, בנוסף לקבצים של המטלה אתם נדרשים להגיש גם קובץ README המתאר את אופן המימוש ואת החלוקה שביצעתם בקוד (סוג של מדריך משתמש). אי עמידה בהנחיות תגרור הפחתה בציון. בהצלחה!
+### Run the project
+After compiling, execute the relevant executable file.
+
+- To run the demo
+  ```bash
+  ./demo
+  ```
+- To run the tests
+  ```bash
+  ./test
+  ```
+
+### Clean compiled files
+To clean compiled files, run the command:
+```bash
+  make clean
+  ```
+
+---
+
+## Files Included
+- `Algorithms.cpp` and `Algorithms.hpp`: Implementation and header files for graph algorithms.
+- `Graph.cpp` and `Graph.hpp`: Implementation and header files for the graph data structure.
+- `Demo.cpp`: Demo application showcasing the implemented algorithms.
+- `Test.cpp` and `TestCounter.cpp`: In Test we are checking a variety of scenarios and in TestCounter we count the tests and making sure there are more then 20.
+
+
+---
+
+## Functions
+- **Strong Connectivity Check**: Determines if the graph is strongly connected, meaning there is a path between all pairs of vertices. For example, this graph is connected but not strongly connected, thus, the algorithm will return false.
+
+![Conected but not strongly connected](Images/image3.jpg)
   
-# System2_Project1
-# System2_Project1
+- **Shortest Path Calculation**: Utilizes the Bellman-Ford algorithm to find the shortest path between any two vertices. It will return the path if existed.
+- **Cycle Detection**: Identifies if the graph contains any cycles. It will return the cycle if existed. For this project, we say there is a cycle in the graph only if it contains at least 3 different vertexes.
+- **Bipartite Verification**: Checks if the graph is bipartite, meaning it can be colored with two colors such that no two adjacent vertices share the same color. If it is, it will return the two groups.
+- **Negative Cycle Detection**: Determining if there a negative cycle in the graph.
+- **Load Graph**: Load a matrix to be a graph object and trows error if the matrix is not square.
+- **Print Graph**: Return how many edges and vertexes a graph have.
+
+In addition to the main functionalities mentioned earlier, the project includes several helper functions to support the core algorithms.
