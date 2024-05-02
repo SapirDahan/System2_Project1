@@ -7,10 +7,14 @@ using namespace ariel;
 void Graph::loadGraph(const std::vector<std::vector<int>>& graph) {
 
     // Check the matrix is square
-    for(unsigned int i = 0; i< graph.size(); i++){
+    for(unsigned int i = 0; i < graph.size(); i++){
         if (graph.size() != graph[i].size()) {
             throw invalid_argument("Invalid graph: The graph is not a square matrix.");
         }
+
+		if (graph[i][i] != 0){
+			throw invalid_argument("Invalid graph: No edges allowed between the vertex to himself.");
+		}
     }
     // Assign the graph to the matrix member variable
     matrix = graph;

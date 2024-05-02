@@ -171,7 +171,7 @@ string Algorithms::isBipartite(const Graph& graph) {
         if (color[i] == -1) {
 
             if (!BFSForBipatite(graph, i, color, A, B)) {
-                return "0"; // Not bipartite
+                return "The graph is not bipartite"; // Not bipartite
             }
         }
     }

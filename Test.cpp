@@ -125,7 +125,7 @@ TEST_CASE("Test isBipartite")
         {0, 0, 1, 0, 0},
         {0, 0, 0, 0, 0}};
     g.loadGraph(graph2);
-    CHECK(ariel::Algorithms::isBipartite(g) == "0");
+    CHECK(ariel::Algorithms::isBipartite(g) == "The graph is not bipartite");
 
     vector<vector<int>> graph3 = {
         {0, 1, 0, 0, 0},
@@ -185,8 +185,6 @@ TEST_CASE("Test negative cycles"){
     g.loadGraph(graph5);
     CHECK(ariel::Algorithms::negativeCycle(g) == "The graph NOT contains negative cycle");
 
-
-
 }
 
 TEST_CASE("Test invalid graph")
@@ -230,6 +228,22 @@ TEST_CASE("Test invalid graph")
         {0, 0, 0, 4},
         {0, 0, 0, 5}};
     CHECK_THROWS(g.loadGraph(graph5));
+
+    vector<vector<int>> graph6 = {
+        {5, 1, 0, 0, 0},
+        {1, 0, 3, 0, 0},
+        {0, 3, 0, 4, 0},
+        {0, 0, 4, 0, 5},
+        {0, 0, 0, -3, 0}};
+    CHECK_THROWS(g.loadGraph(graph6));
+
+    vector<vector<int>> graph7 = {
+        {0, 1, 0, 0, 0},
+        {1, 0, 3, 0, 0},
+        {0, 3, 0, 4, 0},
+        {0, 0, 4, 5, 5},
+        {0, 0, 0, -3, 0}};
+    CHECK_THROWS(g.loadGraph(graph7));
 }
 
 TEST_CASE("Test print graph"){
@@ -256,7 +270,7 @@ TEST_CASE("Test print graph"){
         {0, 0, 0, 0, 0},
         {0, 0, 0, 0, 0},
         {0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0},};
+        {0, 0, 0, 0, 0}};
     g.loadGraph(graph2);
 
     CHECK(g.printGraph() == "Graph with 5 vertices and 0 edges.");
