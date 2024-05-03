@@ -1,9 +1,15 @@
+/*
+ * Author: Sapir Dahan
+ * ID: 325732972
+ * Mail: sapirdahan2003@gmail.com
+ */
+
 #include "Graph.hpp"
 
 using namespace ariel;
 
 
-// Load the graph and check if it square
+// Load the graph and check if it squares
 void Graph::loadGraph(const std::vector<std::vector<int>>& graph) {
 
     // Check the matrix is square
@@ -33,7 +39,7 @@ string Graph::printGraph() const {
         }
     }
 
-    // Constrate the string
+    // Construct the string
     string description = "Graph with " + std::to_string(matrix.size()) + " vertices and " + to_string(edges) + " edges.";
     return description;
 }
@@ -72,6 +78,6 @@ vector<unsigned int> Graph::getConnectedVertices(unsigned int vertex) const {
         }
     }
 
-    // Return the connected verteces
+    // Return the connected vertexes
     return connectedVertices;
 }

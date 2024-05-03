@@ -1,3 +1,10 @@
+/*
+ * Author: Sapir Dahan
+ * ID: 325732972
+ * Mail: sapirdahan2003@gmail.com
+ */
+
+
 #pragma once
 
 #include "Graph.hpp"
@@ -77,7 +84,7 @@ namespace ariel {
          * @param B A reference to an unordered set representing the other set of vertices in the bipartite graph.
          * @return True if the graph is bipartite, false otherwise.
          */
-        static bool BFSForBipatite(const Graph& graph, unsigned int start, vector<int>& color, unordered_set<unsigned int>& A, unordered_set<unsigned int>& B);
+        static bool BFSForBipartite(const Graph& graph, unsigned int start, vector<int>& color, unordered_set<unsigned int>& A, unordered_set<unsigned int>& B);
 
         /**
          * Formats the sets of vertices in a bipartite graph into a string representation.

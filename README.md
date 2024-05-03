@@ -1,3 +1,10 @@
+
+<!-- * Author: Sapir Dahan -->
+<!--ID: 325732972 -->
+<!-- * Mail: sapirdahan2003@gmail.com -->
+
+
+
 # System 2 Project 1
 
 ## Description
@@ -69,11 +76,11 @@ To clean compiled files, run the command:
 
 ![Conected but not strongly connected](Images/image3.jpg)
   
-- **Shortest Path Calculation**: Utilizes the Bellman-Ford algorithm to find the shortest path between any two vertices. It will return the path if existed.
+- **Shortest Path Calculation**: Utilizes the Bellman-Ford algorithm to find the shortest path between any two vertices. It will return the path if existed. In addition, if there is a negative cycle in the path the algorithm will output it.
 - **Cycle Detection**: Identifies if the graph contains any cycles. It will return the cycle if existed. For this project, we say there is a cycle in the graph only if it contains at least 3 different vertexes.
 - **Bipartite Verification**: Checks if the graph is bipartite, meaning it can be colored with two colors such that no two adjacent vertices share the same color. If it is, it will return the two groups.
 - **Negative Cycle Detection**: Determining if there a negative cycle in the graph.
-- **Load Graph**: Load a matrix to be a graph object and trows error if the matrix is not square.
+- **Load Graph**: Load a matrix to be a graph object and trows error if the matrix is not square. It will also trow error if there is an edge from a vertex to itself.
 - **Print Graph**: Return how many edges and vertexes a graph have.
 
 In addition to the main functionalities mentioned earlier, the project includes several helper functions to support the core algorithms.

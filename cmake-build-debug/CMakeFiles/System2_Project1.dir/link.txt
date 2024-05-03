@@ -1,1 +1,0 @@
-/usr/bin/c++ -g CMakeFiles/System2_Project1.dir/Algorithms.cpp.o -o System2_Project1 

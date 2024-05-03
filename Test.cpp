@@ -1,3 +1,11 @@
+/*
+ * Test program for Exercise 1.
+ * Author: Benjamin Saldman.
+ * Edit: Sapir Dahan
+ * ID: 325732972
+ * Mail: sapirdahan2003@gmail.com
+ */
+
 #include "doctest.h"
 #include "Algorithms.hpp"
 #include "Graph.hpp"
@@ -17,7 +25,7 @@ TEST_CASE("Test isConnected")
     g.loadGraph(graph);
     CHECK((ariel::Algorithms::isConnected(g)));
 
-	// Not conected
+	// Not connected
     vector<vector<int>> graph2 = {
         {0, 1, 1, 0, 0},
         {1, 0, 1, 0, 0},

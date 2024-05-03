@@ -1,3 +1,11 @@
+/*
+ * Author: Benjamin Saldman.
+ *
+ * Sapir Dahan
+ * ID: 325732972
+ * Mail: sapirdahan2003@gmail.com
+ */
+
 #define DOCTEST_CONFIG_IMPLEMENT
 #include "doctest.h"
 using namespace doctest;

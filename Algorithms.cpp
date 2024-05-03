@@ -1,3 +1,10 @@
+/*
+ * Author: Sapir Dahan
+ * ID: 325732972
+ * Mail: sapirdahan2003@gmail.com
+ */
+
+
 #include "Algorithms.hpp"
 #include <vector>
 #include <climits>
@@ -19,7 +26,7 @@ bool Algorithms::isConnected(const Graph& graph) {
     for(unsigned int i = 0; i < graphSize; i++) {
         for(unsigned int j = 0; j < graphSize; j++) {
 
-            // We dont need to check if a vertex have a path to himself
+            // We don't need to check if a vertex have a path to himself
             if(i != j) {
 
                 // If there is no path return false because the graph is not strongly connected
@@ -33,7 +40,7 @@ bool Algorithms::isConnected(const Graph& graph) {
         }
     }
 
-    // All paths exict, therefore, our graph is strongly connected
+    // All paths exist, therefore, our graph is strongly connected
     return true;
 }
 
@@ -43,7 +50,7 @@ string Algorithms::shortestPath(const Graph& graph, const unsigned int start, co
 
     const unsigned int numVertices = graph.size(); // Size of the graph
 
-    // Check if the valuse are in range
+    // Check if the values are in range
     if(start >= numVertices || end >= numVertices) {
         throw std::invalid_argument("Invalid values: the start and the end vertex should be in range.");
     }
@@ -58,7 +65,7 @@ string Algorithms::shortestPath(const Graph& graph, const unsigned int start, co
         for (unsigned int j = 0; j < numVertices; j++) {
             for (unsigned int k = 0; k < numVertices; k++) {
 
-                // Checking if there an edge
+                // Checking if edge exist
                 if(graph.getEdge(j,k) != 0) {
 
                     // Check if we can relax it
@@ -80,20 +87,20 @@ string Algorithms::shortestPath(const Graph& graph, const unsigned int start, co
     for (unsigned int j = 0; j < numVertices; j++) {
         for (unsigned int k = 0; k < numVertices; k++) {
 
-            // Checking if there an edge
-            if(graph.getEdge(j,k) != 0) {
+                // Checking if edge exist
+                if(graph.getEdge(j,k) != 0) {
 
                 // Checking if we can relax one more time
                 if (distance[j] != INT_MAX && distance[j] + graph.getEdge(j,k) < distance[k]) {
 
-                    // If we succeded to relax then there is a negative cycle in the path
+                    // If we succeeded to relax then there is a negative cycle in the path
                     return "Negative cycle detected in the path.";
                 }
             }
         }
     }
 
-    // We faild to reach the end vertex therefore, there is no path
+    // We failed to reach the end vertex therefore, there is no path
     if (distance[static_cast<unsigned int>(end)] == INT_MAX) {
         return "-1";
     }
@@ -111,12 +118,12 @@ string Algorithms::shortestPath(const Graph& graph, const unsigned int start, co
     return path;
 }
 
-// Find out if the graph constain cycle. If it does then return the cycle
+// Find out if the graph contain cycle. If it does then return the cycle
 string Algorithms::isContainsCycle(const Graph& graph) {
 
     const unsigned int numVertices = graph.size(); // Graph size
 
-    // Visited verteces
+    // Visited vertexes
     vector<bool> visited(numVertices, false);
 
     // The predecessor of each vertex it set to the maximum number
@@ -156,7 +163,7 @@ string Algorithms::isBipartite(const Graph& graph) {
 
     const unsigned int numVertices = graph.size(); // Graph size
 
-    // The color of each vertex. If the color is -1 we haven't ditermind the color yet
+    // The color of each vertex. If the color is -1 we haven't determined the color, yet
     // We will use the colors 1 and 2
     vector<int> color(numVertices, -1);
 
@@ -166,17 +173,17 @@ string Algorithms::isBipartite(const Graph& graph) {
 
     string result = ""; // The string result
 
-    // Go over all the verteces and find out if we had colored them.
+    // Go over all the vertexes and find out if we had colored them.
     for (unsigned int i = 0; i < numVertices; i++) {
         if (color[i] == -1) {
 
-            if (!BFSForBipatite(graph, i, color, A, B)) {
+            if (!BFSForBipartite(graph, i, color, A, B)) {
                 return "The graph is not bipartite"; // Not bipartite
             }
         }
     }
 
-    // Formate the result and retun them
+    // Format the result and return them
     formatBipartiteSets(A, B, result);
     return result;
 }
@@ -186,7 +193,7 @@ string Algorithms::negativeCycle(const Graph& graph) {
 
     const unsigned int numVertices = graph.size(); // The size of the graph
 
-    // We will check if there is a negative cycle in the shortest path from each vertex to himsel.
+    // We will check if there is a negative cycle in the shortest path from each vertex to himself.
     // If the vertex on negative cycle the shortest will return there is a negative cycle in the path.
     for(unsigned int i = 0; i < numVertices; i++) {
         if(shortestPath(graph, i, i) == "Negative cycle detected in the path.") {
@@ -231,13 +238,13 @@ bool Algorithms::hasPath(const Graph& graph, unsigned int start, unsigned int en
     return false;
 }
 
-// Help function that go recursivly over the graph to detect cycle
+// Help function that go recursively over the graph to detect cycle
 bool Algorithms::DFSForDetectingCycles(const unsigned int node, unsigned int parentNode, const Graph& graph, vector<bool>& visited, vector<unsigned int>& parent, string& cyclePath) {
 
     visited[node] = true; // We visited the node
     parent[node] = parentNode; // The parent of the node
 
-    // Go over the connected verteces of the node
+    // Go over the connected vertexes of the node
     for (const unsigned int nextNode : graph.getConnectedVertices(node)) {
 
         // If we hadn't visited the node
@@ -247,7 +254,7 @@ bool Algorithms::DFSForDetectingCycles(const unsigned int node, unsigned int par
             }
         }
 
-        // We found a cycle which is not get 2 verteces
+        // We found a cycle which is not get 2 vertexes
         else if (nextNode != parentNode) {
 
             unsigned int current = node;
@@ -255,7 +262,7 @@ bool Algorithms::DFSForDetectingCycles(const unsigned int node, unsigned int par
             //The cycle is:
             cyclePath = "The cycle is: " + to_string(nextNode); // Initialize cyclePath with the last vertex in the cycle
 
-            // Go over the verteces and add them to the path
+            // Go over the vertexes and add them to the path
             while (current != INT_MAX && current != nextNode) {
                 cyclePath += "->" + std::to_string(current); // Append current vertex to the end
                 current = parent[current];
@@ -272,17 +279,17 @@ bool Algorithms::DFSForDetectingCycles(const unsigned int node, unsigned int par
     return false;
 }
 
-// Go over the graph with BFS and color it if posibale
-bool Algorithms::BFSForBipatite(const Graph& graph, const unsigned int start, vector<int>& color, unordered_set<unsigned int>& A, unordered_set<unsigned int>& B) {
+// Go over the graph with BFS and color it if possible
+bool Algorithms::BFSForBipartite(const Graph& graph, const unsigned int start, vector<int>& color, unordered_set<unsigned int>& A, unordered_set<unsigned int>& B) {
 
     queue<unsigned int> q; // Set queue
 
-    // This queue will save all the vertex we still hadn't visited all there nigbors
+    // This queue will save all the vertex we still hadn't visited all there neighbors
 
     q.push(start); // Push the start vertex to the queue
 
-    // Checking if the vertex have neibors in 'A' or 'B'
-    // If it have nebors in both then the graph is not bipatite
+    // Checking if the vertex have neighbors in 'A' or 'B'
+    // If it has neighbors in both then the graph is not bipartite
     bool neighborsInA = false;
     bool neighborsInB = false;
 
@@ -295,7 +302,7 @@ bool Algorithms::BFSForBipatite(const Graph& graph, const unsigned int start, ve
         }
     }
 
-    // Imposibale to 2 color the graph
+    // Impossible to 2 color the graph
     if (neighborsInA && neighborsInB) {
         return false;
     }
@@ -316,17 +323,17 @@ bool Algorithms::BFSForBipatite(const Graph& graph, const unsigned int start, ve
     // While the queue is not empty
     while (!q.empty()) {
 
-        // Get and pop the first elemnt in the queue
+        // Get and pop the first element in the queue
         unsigned int currVertex = q.front();
         q.pop();
 
-        // Go over all the verteces connected to the current vertex
+        // Go over all the vertexes connected to the current vertex
         for (const unsigned int nextVertex : graph.getConnectedVertices(currVertex)) {
 
-            // If we haden't colored the vertex
+            // If we hadn't colored the vertex
             if (color[nextVertex] == -1) {
 
-                // Didermaind the color
+                // Set the color
                 color[nextVertex] = 3 - color[currVertex]; // Assign the opposite color
 
                 // Add to the correct ser
@@ -351,12 +358,12 @@ bool Algorithms::BFSForBipatite(const Graph& graph, const unsigned int start, ve
     return true; // Bipartite
 }
 
-// Get elements and constrate a string representing the set
+// Get elements and construct a string representing the set
 string Algorithms::setToString(const unordered_set<unsigned int>& s) {
 
     string str;
 
-    // Go over the elemenst in the set
+    // Go over the elements in the set
     for (const unsigned int elem : s) {
         str = ", " + std::to_string(elem) + str;
     }
@@ -371,7 +378,7 @@ string Algorithms::setToString(const unordered_set<unsigned int>& s) {
 }
 
 
-// constrate the string representing the 2 set
+// Construct the string representing the 2 set
 void Algorithms::formatBipartiteSets(const unordered_set<unsigned int>& A, const unordered_set<unsigned int>& B, string& result) {
     result = "The graph is bipartite: A={";
     result.append(setToString(A));
@@ -381,7 +388,7 @@ void Algorithms::formatBipartiteSets(const unordered_set<unsigned int>& A, const
 }
 
 
-// Count how many time a char appers in a string
+// Count how many times a char appears in a string
 unsigned int Algorithms::countOccurrences(const std::string& str, char target) {
 
     unsigned int count = 0;
