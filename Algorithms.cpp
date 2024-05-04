@@ -20,7 +20,7 @@ bool Algorithms::isConnected(const Graph& graph) {
     const unsigned int graphSize = graph.size(); // Size of the graph
 
     // A vector that save who we visited
-    std::vector<bool> visited(graphSize, false);
+    vector<bool> visited(graphSize, false);
 
     // Going over all combinations of paths
     for(unsigned int i = 0; i < graphSize; i++) {
@@ -52,13 +52,13 @@ string Algorithms::shortestPath(const Graph& graph, const unsigned int start, co
 
     // Check if the values are in range
     if(start >= numVertices || end >= numVertices) {
-        throw std::invalid_argument("Invalid values: the start and the end vertex should be in range.");
+        throw invalid_argument("Invalid values: the start and the end vertex should be in range.");
     }
 
-    std::vector<int> distance(numVertices, INT_MAX); // The distance from the start of each vertex
-    std::vector<int> predecessor(numVertices, -1); // the predecessor of each vertex
+    vector<int> distance(numVertices, INT_MAX); // The distance from the start of each vertex
+    vector<int> predecessor(numVertices, -1); // the predecessor of each vertex
 
-    distance[start] = 0; // The distance from the vertex start is 0
+    distance[start] = 0; // The distance for the start vertex is 0
 
     // Relax the edges
     for (unsigned int i = 0; i < numVertices; i++) {
@@ -100,18 +100,18 @@ string Algorithms::shortestPath(const Graph& graph, const unsigned int start, co
         }
     }
 
-    // We failed to reach the end vertex therefore, there is no path
+    // We failed to reach the end vertex, therefore, there is no path
     if (distance[static_cast<unsigned int>(end)] == INT_MAX) {
         return "-1";
     }
 
     // Reconstruct the path
-    std::string path = std::to_string(end);
+    string path = to_string(end);
 
     // Go over the vertex from the end to the start with predecessor to reconstruct the path
     for (unsigned int current = end; current != start; current = static_cast<unsigned int>(predecessor[current])) {
         path.insert(0, "->");
-        path.insert(0, std::to_string(predecessor[current]));
+        path.insert(0, to_string(predecessor[current]));
     }
 
     // Return the path
@@ -340,6 +340,7 @@ bool Algorithms::BFSForBipartite(const Graph& graph, const unsigned int start, v
                 if(color[nextVertex] == 1) {
                     A.insert(nextVertex);
                 }
+
                 else {
                     B.insert(nextVertex);
                 }
@@ -365,7 +366,7 @@ string Algorithms::setToString(const unordered_set<unsigned int>& s) {
 
     // Go over the elements in the set
     for (const unsigned int elem : s) {
-        str = ", " + std::to_string(elem) + str;
+        str = ", " + to_string(elem) + str;
     }
 
     // Erase the first two characters

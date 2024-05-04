@@ -37,9 +37,9 @@ Use the provided `makefile` to build and run the project:
       ```bash
       make valgrind
       ```
-  - To perform static code analysis using Clang-Tidy:
+  - To perform static code analysis using cppcheck:
       ```bash
-      make tidy
+      make cppcheck
       ```
 
 ### Run the project

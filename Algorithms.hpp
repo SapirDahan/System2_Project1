@@ -48,7 +48,7 @@ namespace ariel {
         /**
          * Detects the presence of a negative cycle in the graph.
          * @param graph The graph to analyze.
-         * @return A string representation of the negative cycle, if any.
+         * @return A string representation whether a negative cycle exist.
          */
         static string negativeCycle(const Graph& graph);
 

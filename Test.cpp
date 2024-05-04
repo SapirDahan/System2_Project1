@@ -1,6 +1,7 @@
 /*
  * Test program for Exercise 1.
  * Author: Benjamin Saldman.
+ *
  * Edit: Sapir Dahan
  * ID: 325732972
  * Mail: sapirdahan2003@gmail.com
@@ -51,10 +52,12 @@ TEST_CASE("Test shortestPath")
         {0, 1, 0}};
     g.loadGraph(graph);
 
+    //Invalid end
     CHECK_THROWS(ariel::Algorithms::shortestPath(g, 0, 3));
 
     CHECK(ariel::Algorithms::shortestPath(g, 0, 2) == "0->1->2");
 
+    // No path
     vector<vector<int>> graph2 = {
         {0, 1, 1, 0, 0},
         {1, 0, 1, 0, 0},
@@ -64,6 +67,7 @@ TEST_CASE("Test shortestPath")
     g.loadGraph(graph2);
     CHECK(ariel::Algorithms::shortestPath(g, 0, 4) == "-1");
 
+    // Negative cycle in the path
     vector<vector<int>> graph3 = {
         {0, -1, -2},
         {-1, 0, -5},
@@ -71,6 +75,7 @@ TEST_CASE("Test shortestPath")
     g.loadGraph(graph3);
     CHECK(ariel::Algorithms::shortestPath(g, 0, 2) == "Negative cycle detected in the path.");
 
+    // Negative cycle in the path
     vector<vector<int>> graph4 = {
         {0, 1, 2},
         {1, 0, -5},
@@ -100,6 +105,8 @@ TEST_CASE("Test shortestPath")
 
 TEST_CASE("Test isContainsCycle"){
     ariel::Graph g;
+
+    // Not contained cycle
     vector<vector<int>> graph = {
         {0, 1, 0},
         {1, 0, 1},
@@ -107,6 +114,7 @@ TEST_CASE("Test isContainsCycle"){
     g.loadGraph(graph);
     CHECK(ariel::Algorithms::isContainsCycle(g) == "0");
 
+    // Contained cycle
     vector<vector<int>> graph2 = {
         {0, 1, 1, 0, 0},
         {1, 0, 1, 0, 0},
@@ -116,9 +124,12 @@ TEST_CASE("Test isContainsCycle"){
     g.loadGraph(graph2);
     CHECK(ariel::Algorithms::isContainsCycle(g) != "0");
 }
+
 TEST_CASE("Test isBipartite")
 {
     ariel::Graph g;
+
+    // Bipartite
     vector<vector<int>> graph = {
         {0, 1, 0},
         {1, 0, 1},
@@ -126,6 +137,7 @@ TEST_CASE("Test isBipartite")
     g.loadGraph(graph);
     CHECK(ariel::Algorithms::isBipartite(g) == "The graph is bipartite: A={0, 2}, B={1}.");
 
+    // Not bipartite
     vector<vector<int>> graph2 = {
         {0, 1, 1, 0, 0},
         {1, 0, 1, 0, 0},
@@ -135,6 +147,7 @@ TEST_CASE("Test isBipartite")
     g.loadGraph(graph2);
     CHECK(ariel::Algorithms::isBipartite(g) == "The graph is not bipartite");
 
+    // Bipartite
     vector<vector<int>> graph3 = {
         {0, 1, 0, 0, 0},
         {1, 0, 3, 0, 0},
@@ -147,6 +160,8 @@ TEST_CASE("Test isBipartite")
 
 TEST_CASE("Test negative cycles"){
     ariel::Graph g;
+
+    // Negative cycle
     vector<vector<int>> graph = {
         {0, 1, 2},
         {1, 0, -5},
@@ -166,6 +181,7 @@ TEST_CASE("Test negative cycles"){
     g.loadGraph(graph2);
     CHECK(ariel::Algorithms::negativeCycle(g) == "The graph contains negative cycle");
 
+    // Negative cycle not found at first search dua to the graph not being connected
     vector<vector<int>> graph3 = {
         {0, 1, 0, 0, 0},
         {1, 0, 3, 0, 0},
@@ -175,6 +191,7 @@ TEST_CASE("Test negative cycles"){
     g.loadGraph(graph3);
     CHECK(ariel::Algorithms::negativeCycle(g) == "The graph contains negative cycle");
 
+    // Not contained negative cycle
  	vector<vector<int>> graph4 = {
         {0, 1, 0, 0, 0},
         {1, 0, 3, 0, 0},

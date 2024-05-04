@@ -22,8 +22,13 @@ demo: Demo.o Graph.cpp Algorithms.cpp
 test: TestCounter.o Test.o $(OBJECTS)
 	$(CXX) $(CXXFLAGS) $^ -o test
 
-tidy:
-	clang-tidy $(SOURCES) -checks=bugprone-*,clang-analyzer-*,cppcoreguidelines-*,performance-*,portability-*,readability-*,-cppcoreguidelines-pro-bounds-pointer-arithmetic,-cppcoreguidelines-owning-memory --warnings-as-errors=-* --
+#tidy:
+#	clang-tidy $(SOURCES) -checks=bugprone-*,clang-analyzer-*,cppcoreguidelines-*,performance-*,portability-*,readability-*,-cppcoreguidelines-pro-bounds-pointer-arithmetic,-cppcoreguidelines-owning-memory --warnings-as-errors=-* --
+
+# Using cppcheck instead of tidy, since I use g++ compiler which is better suited for my machine
+cppcheck:
+	cppcheck $(SOURCES) --enable=all
+
 
 valgrind: demo test
 	valgrind --tool=memcheck $(VALGRIND_FLAGS) ./demo 2>&1 | { egrep "lost| at " || true; }

@@ -9,7 +9,7 @@
 using namespace ariel;
 
 
-// Load the graph and check if it squares
+// Load the graph and check if it squares also no edge between a vertex to himself
 void Graph::loadGraph(const std::vector<std::vector<int>>& graph) {
 
     // Check the matrix is square
@@ -18,6 +18,7 @@ void Graph::loadGraph(const std::vector<std::vector<int>>& graph) {
             throw invalid_argument("Invalid graph: The graph is not a square matrix.");
         }
 
+        // No edges allowed between the vertex to himself
 		if (graph[i][i] != 0){
 			throw invalid_argument("Invalid graph: No edges allowed between the vertex to himself.");
 		}
