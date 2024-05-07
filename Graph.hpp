@@ -49,5 +49,10 @@ namespace ariel{
          * @return A vector containing indices of all vertices directly connected to the specified vertex.
          */
         vector<unsigned int> getConnectedVertices(unsigned int vertex) const;
+
+        /**
+         * Transposes the graph by swapping the rows and columns of the adjacency matrix.
+         */
+        void transposeGraph();
     };
 }

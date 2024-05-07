@@ -40,6 +40,17 @@ TEST_CASE("Test isConnected")
     vector<vector<int>> graph3 = {
         {0, 1},
         {0, 0}};
+    g.loadGraph(graph3);
+    CHECK(!ariel::Algorithms::isConnected(g));
+
+    // Connected but not strongly
+    vector<vector<int>> graph4 = {
+            {0, 1, 1, 1, 1},
+            {0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0}};
+    g.loadGraph(graph4);
     CHECK(!ariel::Algorithms::isConnected(g));
 }
 

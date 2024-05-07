@@ -20,7 +20,7 @@ namespace ariel {
          * @param graph The graph to check.
          * @return True if the graph is strongly connected, false otherwise.
          */
-        static bool isConnected(const Graph& graph);
+        static bool isConnected(Graph& graph);
 
         /**
          * Finds the shortest path between two vertices using the Bellman-Ford algorithm.
@@ -53,26 +53,26 @@ namespace ariel {
         static string negativeCycle(const Graph& graph);
 
     private:
-        /**
-         * Helper function to check if there is a path between two vertices.
-         * @param graph The graph to analyze.
-         * @param start The starting vertex index.
-         * @param end The ending vertex index.
-         * @param visited A reference to a vector indicating if a vertex has been visited.
-         * @return True if a path exists, false otherwise.
-         */
-        static bool hasPath(const Graph& graph, unsigned int start, unsigned int end, vector<bool>& visited);
 
         /**
-         * Performs depth-first search (DFS) to detect cycles in the graph.
-         * @param node The current node being visited.
-         * @param parentNode The parent node of the current node.
-         * @param graph The graph being analyzed.
-         * @param visited A reference to a vector indicating if a vertex has been visited.
-         * @param parent A reference to a vector storing the parent of each vertex.
-         * @param cyclePath A reference to a string that will contain the cycle path if found.
-         * @return True if a cycle is detected, false otherwise.
+         * Depth-First Search (DFS) function to traverse the graph starting from a specific vertex.
+         *
+         * @param graph The graph to perform DFS on.
+         * @param v The current vertex being visited.
+         * @param visited A reference to a vector indicating if a vertex has been visited during the traversal.
          */
+        static void DFS(const Graph& graph, unsigned int v, vector<bool>& visited);
+
+            /**
+             * Performs depth-first search (DFS) to detect cycles in the graph.
+             * @param node The current node being visited.
+             * @param parentNode The parent node of the current node.
+             * @param graph The graph being analyzed.
+             * @param visited A reference to a vector indicating if a vertex has been visited.
+             * @param parent A reference to a vector storing the parent of each vertex.
+             * @param cyclePath A reference to a string that will contain the cycle path if found.
+             * @return True if a cycle is detected, false otherwise.
+             */
         static bool DFSForDetectingCycles(unsigned int node, unsigned int parentNode, const Graph& graph, vector<bool>& visited, vector<unsigned int>& parent, string& cyclePath);
 
         /**

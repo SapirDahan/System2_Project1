@@ -15,32 +15,41 @@ using namespace ariel;
 
 
 // Checking if the graph is strongly connected
-bool Algorithms::isConnected(const Graph& graph) {
+bool Algorithms::isConnected(Graph& graph) {
 
-    const unsigned int graphSize = graph.size(); // Size of the graph
+    // Visited vertices
+    vector<bool> visited(graph.size(), false);
 
-    // A vector that save who we visited
-    vector<bool> visited(graphSize, false);
+    // Call DFS function
+    DFS(graph, 0, visited);
 
-    // Going over all combinations of paths
-    for(unsigned int i = 0; i < graphSize; i++) {
-        for(unsigned int j = 0; j < graphSize; j++) {
-
-            // We don't need to check if a vertex have a path to himself
-            if(i != j) {
-
-                // If there is no path return false because the graph is not strongly connected
-                if(!hasPath(graph, i , j, visited)) {
-                    return false;
-                }
-
-                // Refill the visited vector with false for the next round
-                visited.assign(graphSize, false);
-            }
+    // Check if all vertices was visited
+    for (bool v : visited) {
+        if (!v){
+            return false; // Not all vertices were visited
         }
     }
 
-    // All paths exist, therefore, our graph is strongly connected
+    //Transpose the graph
+    graph.transposeGraph();
+
+    //Perform DFS on the transposed graph from the first vertex
+    fill(visited.begin(), visited.end(), false); // Reset visited array
+
+    // Call DFS function
+    DFS(graph, 0, visited);
+
+    // Transpose to the original form
+    graph.transposeGraph();
+
+    // Check if all vertices was visited
+    for (bool v : visited) {
+        if (!v){
+            return false; // Not all vertices were visited in the transposed graph
+        }
+    }
+
+    // If all vertices were visited in both original and transposed graphs, it's strongly connected
     return true;
 }
 
@@ -209,33 +218,22 @@ string Algorithms::negativeCycle(const Graph& graph) {
 
 /////// Help functions ///////
 
-// Help recursive function to find out if 2 vertex have a path
-bool Algorithms::hasPath(const Graph& graph, unsigned int start, unsigned int end, std::vector<bool>& visited) {
+// DFS function to check if all vertices are reachable from a vertex
+void Algorithms::DFS(const Graph& graph, unsigned int v, vector<bool>& visited) {
 
-    // Mark the current vertex as visited
-    visited[start] = true;
+    // We visited that vertex
+    visited[v] = true;
 
-    // Base case: If we reach the destination vertex, return true
-    if (start == end) {
-        return true;
-    }
+    // Go over all the connected vertices
+    for (unsigned int i : graph.getConnectedVertices(v)) {
 
-    // Recursive step: Explore all adjacent vertices of the start vertex
-    const vector<unsigned int>& edges = graph.getConnectedVertices(start);
+        // If we hadn't visited that vertex
+        if (!visited[i]) {
 
-    // Going over all the edges
-    for (unsigned int adjacentVertex : edges) {
-
-        // Recursively call hasPath for unvisited adjacent vertices
-        if (!visited[adjacentVertex]) {
-            if (hasPath(graph, adjacentVertex, end, visited)) {
-                return true; // If a path is found, return true
-            }
+            // Recursive call
+            DFS(graph, i, visited);
         }
     }
-
-    // If we reach here, there is no path from start vertex to end vertex
-    return false;
 }
 
 // Help function that go recursively over the graph to detect cycle

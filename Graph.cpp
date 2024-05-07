@@ -82,3 +82,19 @@ vector<unsigned int> Graph::getConnectedVertices(unsigned int vertex) const {
     // Return the connected vertexes
     return connectedVertices;
 }
+
+
+// Transpose the vertices of the graph
+void Graph::transposeGraph() {
+    for (size_t i = 0; i < matrix.size(); i++) {
+        for (size_t j = i + 1; j < matrix.size(); j++) {
+
+            // Swap elements at position (i, j) and (j, i)
+            int temp = matrix[i][j];
+            matrix[i][j] = matrix[j][i];
+            matrix[j][i] = temp;
+        }
+    }
+}
+
+
