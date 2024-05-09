@@ -96,8 +96,8 @@ string Algorithms::shortestPath(const Graph& graph, const unsigned int start, co
     for (unsigned int j = 0; j < numVertices; j++) {
         for (unsigned int k = 0; k < numVertices; k++) {
 
-                // Checking if edge exist
-                if(graph.getEdge(j,k) != 0) {
+            // Checking if edge exist
+            if(graph.getEdge(j,k) != 0) {
 
                 // Checking if we can relax one more time
                 if (distance[j] != INT_MAX && distance[j] + graph.getEdge(j,k) < distance[k]) {
@@ -252,7 +252,7 @@ bool Algorithms::DFSForDetectingCycles(const unsigned int node, unsigned int par
             }
         }
 
-        // We found a cycle which is not get 2 vertexes
+            // We found a cycle which is not get 2 vertexes
         else if (nextNode != parentNode) {
 
             unsigned int current = node;
@@ -311,7 +311,7 @@ bool Algorithms::BFSForBipartite(const Graph& graph, const unsigned int start, v
         B.insert(start);
     }
 
-    // We will color the start vertex 1 otherwise
+        // We will color the start vertex 1 otherwise
     else {
         color[start] = 1; // Assign the first color
         A.insert(start);
@@ -347,7 +347,7 @@ bool Algorithms::BFSForBipartite(const Graph& graph, const unsigned int start, v
                 q.push(nextVertex);
             }
 
-            // If the next vertex have the same color of the current vertex then it is not 2 colorable
+                // If the next vertex have the same color of the current vertex then it is not 2 colorable
             else if (color[nextVertex] == color[currVertex]) {
                 return false; // Not bipartite
             }
@@ -401,4 +401,3 @@ unsigned int Algorithms::countOccurrences(const std::string& str, char target) {
 
     return count;
 }
-

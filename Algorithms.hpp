@@ -63,16 +63,16 @@ namespace ariel {
          */
         static void DFS(const Graph& graph, unsigned int v, vector<bool>& visited);
 
-            /**
-             * Performs depth-first search (DFS) to detect cycles in the graph.
-             * @param node The current node being visited.
-             * @param parentNode The parent node of the current node.
-             * @param graph The graph being analyzed.
-             * @param visited A reference to a vector indicating if a vertex has been visited.
-             * @param parent A reference to a vector storing the parent of each vertex.
-             * @param cyclePath A reference to a string that will contain the cycle path if found.
-             * @return True if a cycle is detected, false otherwise.
-             */
+        /**
+         * Performs depth-first search (DFS) to detect cycles in the graph.
+         * @param node The current node being visited.
+         * @param parentNode The parent node of the current node.
+         * @param graph The graph being analyzed.
+         * @param visited A reference to a vector indicating if a vertex has been visited.
+         * @param parent A reference to a vector storing the parent of each vertex.
+         * @param cyclePath A reference to a string that will contain the cycle path if found.
+         * @return True if a cycle is detected, false otherwise.
+         */
         static bool DFSForDetectingCycles(unsigned int node, unsigned int parentNode, const Graph& graph, vector<bool>& visited, vector<unsigned int>& parent, string& cyclePath);
 
         /**
